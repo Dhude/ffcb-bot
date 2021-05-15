@@ -15,6 +15,11 @@ export const sendMessageToChannel = async (
   const { guildId } = ctx.getConfig('discord');
 
   const guild = discordClient.guilds.cache.get(guildId);
+
+  if(!guild) {
+    throw new Error(`No guild found with id ${guildId}`);
+  }
+
   const channel = guild.channels.cache.find(
     (channel) => channel.name === channelName
   );

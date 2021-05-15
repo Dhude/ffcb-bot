@@ -1,4 +1,4 @@
-import * as LRU from "lru-cache";
+import LRU from "lru-cache";
 import { TCtx } from "../../ctx";
 
 export type TPlayerData = {
@@ -22,8 +22,9 @@ const playerDataCache = new LRU<string, TPlayerData>({
 const PLAYER_DATA_URL = "https://www.beatsavior.io/newscoresaber/api/player";
 
 export const getPlayerData = async (ctx: TCtx, playerId: string): Promise<TPlayerData> => {
-  if (playerDataCache.get(playerId)) {
-    return playerDataCache.get(playerId);
+  const fromCache = playerDataCache.get(playerId)
+  if (fromCache !== undefined) {
+    return fromCache;
   }
 
   const result: TPlayerDataResponse = await ctx

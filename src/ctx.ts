@@ -11,7 +11,7 @@ export type TCtx = {
   handlers: typeof handlerTree,
 }
 
-export const createCtx = async (appConfig: TAppConfig): Promise<TCtx> => {
+export const createCtx = async (): Promise<TCtx> => {
   const ctx = {
     getGlobal,
     getConfig,

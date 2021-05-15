@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import * as LRU from "lru-cache";
+import LRU from "lru-cache";
 import { TCtx } from "../../ctx";
 import { TSongData } from "../beatsavior/getLastPlayedSongs";
 import { TPlayerData } from "../beatsavior/getPlayerData";

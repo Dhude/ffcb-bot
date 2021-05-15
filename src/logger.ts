@@ -1,6 +1,6 @@
 const defaultLogger = {
-  log: (...args) => console.log(new Date().toUTCString(), ...args),
-  error: (...args) => console.error(new Date().toUTCString(), ...args)
+  log: (...args: any) => console.log(new Date().toUTCString(), ...args),
+  error: (...args: any) => console.error(new Date().toUTCString(), ...args)
 }
 
 export const getLogger = () => defaultLogger;
