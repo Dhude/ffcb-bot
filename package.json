@@ -1,0 +1,26 @@
+{
+  "name": "ffcb-bot",
+  "version": "1.0.0",
+  "description": "Finnish FLAT CAT Battles bot",
+  "main": "index.js",
+  "repository": "git@github.com:Dhude/ffcb-bot.git",
+  "author": "<maxx.mikkola@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "generate:handlertree": "node ./scripts/generateHandlerTree"
+  },
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "express": "^4.17.1",
+    "lru-cache": "^6.0.0",
+    "node-fetch": "^2.6.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/lru-cache": "^5.1.0",
+    "@types/node-fetch": "^2.5.10",
+    "dotenv": "^9.0.2"
+  }
+}

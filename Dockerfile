@@ -1,0 +1,15 @@
+FROM node:16
+
+ARG PLAYER_IDS=""
+ARG DISCORD_TOKEN="TOKEN"
+
+WORKDIR /app
+
+COPY . . 
+
+RUN yarn install --production
+
+ENV PLAYER_IDS=PLAYER_IDS
+ENV DISCORD_TOKEN=DISCORD_TOKEN
+
+CMD ["yarn", "start"]
