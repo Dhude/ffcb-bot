@@ -3,6 +3,7 @@ import LRU from "lru-cache";
 import { TCtx } from "../../ctx";
 import { TSongData } from "../beatsavior/getLastPlayedSongs";
 import { TPlayerData } from "../beatsavior/getPlayerData";
+import { isRankedSong } from "./enrichPbData";
 
 const asPercentage = (fraction: number) => `${(fraction * 100).toFixed(2)}%`;
 
@@ -11,6 +12,8 @@ const createPbMessageEmbed = (playerData: TPlayerData, songData: TSongData) => {
     songData.trackers.scoreTracker;
 
   const isNewSong = songData.trackers.scoreTracker.personalBest === 0;
+  const isFullCombo = songData.trackers.hitTracker.miss === 0;
+
   const message = new MessageEmbed()
     .setColor("RANDOM")
     .setAuthor(
@@ -28,12 +31,27 @@ const createPbMessageEmbed = (playerData: TPlayerData, songData: TSongData) => {
     .addField("Score", `${score} (${asPercentage(modifiedRatio)})`)
     .setFooter(":3");
 
+    message.setDescription([
+      `(:flag_fi: ${playerData.countryRank})`,
+      isFullCombo && ':fire: FULL COMBOOOO :fire:'
+    ].filter(v => !!v)
+    .join('\n'))
+
     if(!isNewSong) {
       message.addField(
         "Delta",
         `+${asPercentage(modifiedRatio - personalBestModifiedRatio)}`,
         true
       )
+    }
+
+    if(isRankedSong(songData)) {
+      // Molest the difficulty field to add stars
+      const difficultyField = message.fields.find(field => field.name === 'Difficulty');
+      difficultyField!.value = `${difficultyField!.value} (${songData.stars} :star:)`
+
+      message.addField('pp', `${songData.pp} (${songData.pp * songData.weight})`);
+      message.addField('Global rank for song', songData.rank);
     }
 
   return message;
@@ -79,8 +97,10 @@ export const checkPbsForPlayer = async (ctx: TCtx, playerId: string) => {
   }
 
   for (const pb of newPbs) {
-    const message = createPbMessageEmbed(playerData, pb);
+    const enrichedPb = await ctx.handlers.pbTracker.enrichPbData(ctx, pb);
+
+    const message = createPbMessageEmbed(playerData, enrichedPb);
     await ctx.handlers.discord.sendMessageToChannel(ctx, channelName, message);
-    ctx.getLogger().log(`new pb`, pb.playerID, pb.songID)
+    ctx.getLogger().log(`new pb`, enrichedPb.playerID, enrichedPb.songID)
   }
 };

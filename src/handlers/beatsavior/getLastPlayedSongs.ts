@@ -20,6 +20,10 @@ export type TSongData = {
       personalBest: number;
       personalBestModifiedRatio: number;
     };
+    hitTracker: {
+      maxCombo: number;
+      miss: number;
+    }
   };
 };
 
