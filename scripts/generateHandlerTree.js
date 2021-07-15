@@ -32,7 +32,7 @@ export const handlerTree = {${domains
     .map(
       (domain) => `
     ${domain}: {
-      ${handlerTree[domain].map((handlerName) => handlerName).join(",")}
+      ${handlerTree[domain].map((handlerName) => handlerName).join(",\n\t\t\t")}
     }`
     )
     .join(",")}
