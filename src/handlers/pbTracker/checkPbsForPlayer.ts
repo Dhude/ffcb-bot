@@ -50,7 +50,7 @@ const createPbMessageEmbed = (playerData: TPlayerData, songData: TSongData) => {
       const difficultyField = message.fields.find(field => field.name === 'Difficulty');
       difficultyField!.value = `${difficultyField!.value} (${songData.stars} :star:)`
 
-      message.addField('pp', `${songData.pp} (${songData.pp * songData.weight})`);
+      message.addField('pp', `${songData.pp} (${(songData.pp * songData.weight).toFixed(2)})`);
       message.addField('Global rank for song', songData.rank);
     }
 

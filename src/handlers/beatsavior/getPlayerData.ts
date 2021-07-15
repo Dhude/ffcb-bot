@@ -16,7 +16,7 @@ type TPlayerDataResponse = {
 }
 
 const playerDataCache = new LRU<string, TPlayerData>({
-  maxAge: 1000 * 60 * 60,
+  maxAge: 1000 * 60,
 });
 
 const PLAYER_DATA_URL = "https://www.beatsavior.io/newscoresaber/api/player";
