@@ -10,19 +10,19 @@ import { getStarsForSong } from "../handlers/scoresaber/getStarsForSong";
 export const handlerTree = {
     beatsavior: {
       getLastPlayedSongs,
-			getPlayerData
+      getPlayerData
     },
     discord: {
       sendMessageToChannel
     },
     pbTracker: {
       checkPbsForPlayer,
-			enrichPbData,
-			periodicallyRunAllPbChecks
+      enrichPbData,
+      periodicallyRunAllPbChecks
     },
     scoresaber: {
       getRecentScoresForPlayer,
-			getStarsForSong
+      getStarsForSong
     }
 }
   
